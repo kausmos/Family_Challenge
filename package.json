@@ -1,0 +1,30 @@
+{
+  "name": "family_challenge",
+  "version": "1.0.0",
+  "description": "Contains code by Kaustuva Ghosh for the Family Coding Challenge by geektrust",
+  "main": "geektrust.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node geektrust.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kausmos/Family_Challenge.git"
+  },
+  "keywords": [
+    "geektrust",
+    "trees",
+    "coding",
+    "challenge",
+    "node.js",
+    "javascript",
+    "fullstack",
+    "developer"
+  ],
+  "author": "Kaustuva Ghosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kausmos/Family_Challenge/issues"
+  },
+  "homepage": "https://github.com/kausmos/Family_Challenge#readme"
+}
