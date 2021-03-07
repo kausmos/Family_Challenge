@@ -3,7 +3,7 @@ Contains code for Family Codiing Challenge on Geektrust
 
 # How to Run
 
-npm start --silent <input_file_path> [<seed_file_path>]
+**npm start --silent <input_file_path> [<seed_file_path>]**
 
 The seed file initializes the memory with the family tree.
 Passing the path to seed file is optional.
@@ -12,8 +12,8 @@ Relative or absolute paths both work for the above.
 
 the input file input.txt may be used for testing. For this run the command:
 
-*npm start --silent ./input.txt* or
-*npm start --silent ./input.txt <path_to_custom_seed_file>*
+**npm start --silent ./input.txt** or
+**npm start --silent ./input.txt <path_to_custom_seed_file>**
 
 
 # Overview of Classes:
