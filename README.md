@@ -12,7 +12,8 @@ Relative or absolute paths both work for the above.
 
 the input file input.txt may be used for testing. For this run the command:
 
-**npm start --silent ./input.txt** or
+**npm start --silent ./input.txt**
+or
 **npm start --silent ./input.txt <path_to_custom_seed_file>**
 
 
