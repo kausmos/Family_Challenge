@@ -10,3 +10,4 @@ GET_RELATIONSHIP Cristiano Paternal-Uncle
 GET_RELATIONSHIP Cristiano Paternal-Aunt
 GET_RELATIONSHIP Cristiano Siblings
 ADD_CHILD Cristiano Junior Male
+GET_RELATIONSHIP Atya Sister-In-Law

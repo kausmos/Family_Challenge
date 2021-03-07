@@ -103,8 +103,15 @@ class Person{
 
     searchInLaws(gender){
         let response=[];
-        if(this.spouse===null) return response;
-        response=this.spouse.searchSiblings(gender);
+        if(this.spouse!==null) {
+            response=response.concat(this.spouse.searchSiblings(gender));
+        }
+        let siblings=this.searchSiblings();
+        for(let sibling of siblings){
+            if(sibling.spouse!=null && sibling.spouse.gender==gender){
+                response.push(sibling.spouse);
+            }
+        }
         return response;
     }
     
