@@ -1,4 +1,5 @@
 GET_RELATIONSHIP Lika Brother-In-Law
+GET_RELATIONSHIP Asva Maternal-Aunt
 GET_RELATIONSHIP Asva Brother
 GET_RELATIONSHIP Asva Siblings
 GET_RELATIONSHIP Amba Son
@@ -8,3 +9,4 @@ ADD_CHILD Satvy Cristiano Male
 GET_RELATIONSHIP Cristiano Paternal-Uncle
 GET_RELATIONSHIP Cristiano Paternal-Aunt
 GET_RELATIONSHIP Cristiano Siblings
+ADD_CHILD Cristiano Junior Male

@@ -32,7 +32,7 @@ class Family{
             return constants.messages["PERSON_NOT_FOUND"]
         }else{
             relatives = member.getRelationship(relationship);
-            if (relatives){
+            if (relatives.length){
                 if (relatives===constants.messages["RELATIONSHIP_YET_TO_BE_IMPLEMENTED"]) return relatives;
                 return relatives.map(x=>x.name).join(" ");
             }else{
