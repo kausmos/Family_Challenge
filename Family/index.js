@@ -5,26 +5,11 @@ class Family{
         this.head=new Person(name,gender);
     }
 
-    searchMember(person, head){        
-        const membersToCheck=[head];        
-        while(membersToCheck.length){
-            const member=membersToCheck.pop();
-            if (member.name===person) return member;
-            if (member.spouse && member.spouse.name===person) return member.spouse;
-            let children=[];
-            if(member.gender==='Male' && member.spouse!=null){
-                children=member.spouse.children;
-            }else if(member.gender=='Female') children=member.children;
-            for(let child of children){
-                membersToCheck.push(child);
-            }
-        }
-        return null;
-    }
+    
 
     getRelationship(person,relationship){
         let relatives=[];
-        const member= this.searchMember(person,this.head);
+        const member= searchMember(person,this.head);
         if(!relationship.length){
             return constants.messages["INVALID_INPUT"];
         }
@@ -42,7 +27,7 @@ class Family{
     }
 
     addChild(mother,child,gender){
-        const member = this.searchMember(mother,this.head);
+        const member = searchMember(mother,this.head);
         if (member===null){
             return constants.messages["PERSON_NOT_FOUND"]
         }else if (child == null || gender == null || member.gender!="Female" || member.spouse===null) {
@@ -56,7 +41,7 @@ class Family{
 
     addSpouse(memberName,spouseName, genderOfSpouse){
         let response=[];
-        const member = this.searchMember(memberName,this.head);        
+        const member = searchMember(memberName,this.head);        
         if (member===null){
             return constants.messages["PERSON_NOT_FOUND"];
         }
@@ -66,6 +51,22 @@ class Family{
     }
 
 
+}
+
+// equivalent of a java private method. This is used by the class but is not exported.
+
+function searchMember(person, head){        
+    const membersToCheck=[head];        
+    while(membersToCheck.length){
+        const member=membersToCheck.pop();
+        if (member.name===person) return member;
+        if (member.spouse && member.spouse.name===person) return member.spouse;
+        let children=member.getChildren();        
+        for(let child of children){
+            membersToCheck.push(child);
+        }
+    }
+    return null;
 }
 
 module.exports= Family;
