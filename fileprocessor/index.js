@@ -1,17 +1,36 @@
 const fs = require('fs');
 const readline = require('readline');
+const { writer } = require('repl');
 const constants=require('../constants');
 
-function processFile(filepath,family,isSeed=false){
-    const file = readline.createInterface({
-        input: fs.createReadStream(filepath),
-        output: process.stdout,
-        terminal: false
-    });
-    file.on('line', (line) => { 
-        processLine(line,family,isSeed); 
-    });
+function processFile(filepath,family,isSeed=false){    
+              
+        
+            const inputStream=fs.createReadStream(filepath);
+            inputStream.on("error",(err)=>{
+                if(err.code==='ENOENT'){
+                    console.log("!!!Incorrect input file location, you may use ./input.txt if you wish!!!");
+                }
+                });
+            const file = readline.createInterface({
+                input: inputStream,
+                output: process.stdout,
+                terminal: false
+            });
+            file.on('error',(e)=>{console.log("Error while reading from file. Error Code:"+e.code)});
+            file.on('line', (line) => {
+                try{
+                    processLine(line,family,isSeed); 
+                } catch(e){
+                    console.log("Following error ocurred during operations: "+e.code);
+                }             
+                
+            });
+    
 }
+    
+    
+
 
 function processLine(line,family,isSeed=false){
     const lineArray=line.split(" ");
@@ -35,7 +54,7 @@ function processLine(line,family,isSeed=false){
         default:
             // code block
         }
-        if(!isSeed)console.log(response);
+        if(!isSeed && response!==null)console.log(response);
 }
 
 module.exports = processFile;
