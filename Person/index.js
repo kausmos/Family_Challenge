@@ -2,17 +2,24 @@ const constants=require('../constants');
 class Person{
     constructor(name,gender,father=null,mother=null){
        if(name===null || gender==null) throw new Error(constants.messages['INVALID_INPUT']);
+
+       //closures being utilized here to create java's equivalent of private variables
         this.getName=()=>{return name};        
         this.getGender=()=>{return gender};        
         this.getFather=()=>{return father};        
         this.getMother=()=>{return mother};        
         if(gender==="Female"){
-            this.children=[];                      
+            this.children=[];
+            //Chosures have not been used for the children property.
+            //This is because javascript passes the actual reference of reference type variables.
+            //An option would be to use a getter and return a function with a closure after copying the contents of children.
+            //This would solve the privacy issue. However this has not been done keeping in mind the 
+            //deterioration in the time and space complexity, making it less scalable.                      
         }       
     }
 
     addChild(child){
-        if(this.getGender()==="Female" && this.getSpouse()!==null){
+        if(this.getGender()==="Female" && this.getSpouse){
             child.setMother(this);
             child.setFather(this.getSpouse());
             //Choosing not to use setter below since getters pass around actual reference

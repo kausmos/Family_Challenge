@@ -4,6 +4,11 @@ class Family{
     addFamilyHead(name,gender){
         try{
             this.head=new Person(name,gender);
+             //Chosures have not been used for the head property.
+            //This is because javascript passes the actual reference of reference type variables.
+            //An option would be to use a getter and return a function with a closure after copying the contents of head.
+            //This would solve the privacy issue. However this has not been done keeping in mind the 
+            //deterioration in the time and space complexity, making it less scalable.
         }catch(e){
             return e.message;
         }        

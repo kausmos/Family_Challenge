@@ -1,3 +1,9 @@
+/**** 
+ * This is a Behaviour Driven Development styled test suite.
+ * This is not a true unit test for Family unit, which would require stubbing/mocking of the Person class dependency methods
+ * A library such as Sinon will be used for the mocking/stubbing in the next commits
+ * This may be considered as a joint testing of (Family+Person) class
+*/
 const mocha = require('mocha');
 const assert= require('assert');
 const Family = require('../../Family')
