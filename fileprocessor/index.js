@@ -1,6 +1,5 @@
 const fs = require('fs');
 const readline = require('readline');
-const { writer } = require('repl');
 const constants=require('../constants');
 
 function processFile(filepath,family,isSeed=false){    
@@ -22,7 +21,7 @@ function processFile(filepath,family,isSeed=false){
                 try{
                     processLine(line,family,isSeed); 
                 } catch(e){
-                    console.log("Following error ocurred during operations: "+e.code);
+                    console.log("Following error ocurred during operations: "+e.message);                    
                 }             
                 
             });
@@ -31,7 +30,7 @@ function processFile(filepath,family,isSeed=false){
     
     
 
-
+//private function, not exported/exposed outside.
 function processLine(line,family,isSeed=false){
     const lineArray=line.split(" ");
     const command=lineArray[0];

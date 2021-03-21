@@ -1,23 +1,35 @@
 const constants=require('../constants');
 class Person{
     constructor(name,gender,father=null,mother=null){
-        this.name=name;
-        this.gender=gender;
-        this.spouse=null;
-        this.father=father;
-        this.mother=mother;
-        if(gender==="Female") this.children=[];
+       if(name===null || gender==null) throw new Error(constants.messages['INVALID_INPUT']);
+        this.getName=()=>{return name};        
+        this.getGender=()=>{return gender};        
+        this.getFather=()=>{return father};        
+        this.getMother=()=>{return mother};        
+        if(gender==="Female"){
+            this.children=[];                      
+        }       
     }
 
     addChild(child){
-        if(this.gender==="Female" && this.spouse!==null){
-            child.mother=this;
-            child.fater=this.spouse;
-            this.children.push(child);
+        if(this.getGender()==="Female" && this.getSpouse()!==null){
+            child.setMother(this);
+            child.setFather(this.getSpouse());
+            //Choosing not to use setter below since getters pass around actual reference
+            //of reference types
+            this.getChildren().push(child);
            
         }else{
             return(constants.messages["CHILD_ADDITION_FAILED"]);
         }        
+    }
+
+    setMother(mother){
+        this.getMother=()=>{return mother};        
+    }
+
+    setFather(father){
+        this.getFather=()=>{return father};        
     }
 
     getRelationship(relationship){
@@ -47,23 +59,23 @@ class Person{
                 break;
     
             case constants.relationships["MATERNAL_AUNT"]:
-                if (this.mother=== null) return null;
-                response = searchSiblings(this.mother,"Female");
+                if (this.getMother()=== null) return null;
+                response = searchSiblings(this.getMother(),"Female");
                 break;
     
             case constants.relationships["PATERNAL_AUNT"]:
-                if (this.father === null) return null;
-                response = searchSiblings(this.father,"Female");
+                if (this.getFather() === null) return null;
+                response = searchSiblings(this.getFather(),"Female");
                 break;
     
             case constants.relationships["MATERNAL_UNCLE"]:
-                if (this.mother=== null) return null;
-                response = searchSiblings(this.mother,"Male");
+                if (this.getMother()=== null) return null;
+                response = searchSiblings(this.getMother(),"Male");
                 break;
     
             case constants.relationships["PATERNAL_UNCLE"]:
-                if (this.father === null) return null;
-                response = searchSiblings(this.father,"Male");
+                if (this.getFather() === null) return null;
+                response = searchSiblings(this.getFather(),"Male");
                 break;
 
             default:
@@ -73,14 +85,14 @@ class Person{
         return response;
     }        
     
-    addSpouse(spouse){
-        this.spouse=spouse;
+    addSpouse(spouse){        
+        this.getSpouse=()=>spouse;        
     }
 
     getChildren(){
-        if (this.spouse===null) return [];
-        else if (this.gender==="Male"){
-            return this.spouse.children;
+        if (this.getSpouse===undefined || this.getSpouse()===null) return [];
+        else if (this.getGender()==="Male"){
+            return this.getSpouse().children;
         }
         return this.children;
     }
@@ -91,9 +103,9 @@ class Person{
 function searchSiblings(member,gender=null){
     //the gender parameter can be used later for implementation of finding brother and sister
     let response=[];
-    if (member==null || !member.mother)return response;
-    for (let sibling of member.mother.children){
-        if(sibling!==member && (gender===null || sibling.gender===gender)){
+    if (member===null || member.getMother()===null)return response;
+    for (let sibling of member.getMother().getChildren()){
+        if(sibling!==member && (gender===null || sibling.getGender()===gender)){
             response.push(sibling);
         }
     }
@@ -102,26 +114,24 @@ function searchSiblings(member,gender=null){
 
 function searchInLaws(member,gender){
     let response=[];
-    if(member && member.spouse!==null) {
-        response=response.concat(searchSiblings(member.spouse,gender));
+    if(member && member.getSpouse) {
+        response=response.concat(searchSiblings(member.getSpouse(),gender));
     }
     let siblings=searchSiblings(member);
     for(let sibling of siblings){
-        if(sibling.spouse!=null && sibling.spouse.gender==gender){
-            response.push(sibling.spouse);
+        if(sibling.getSpouse && sibling.getSpouse().getGender()==gender){
+            response.push(sibling.getSpouse());
         }
     }
     return response;
 }
 
 function searchChildren(parent,gender=null){
-    let response=[];
-    let wife=null;
-    if (parent && parent.spouse!==null){
-        if(parent.gender==="Female"){
-            response = parent.children
-        }else{response= parent.spouse.children}
+    let response=[];    
+    if (parent && parent.getSpouse){
+        response= parent.getChildren();
     }
     return response;
 }
+
 module.exports=Person;
